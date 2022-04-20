@@ -31,4 +31,4 @@ const bookingData = [
   }
 ]
 
-export { bookingData };
+export default bookingData;

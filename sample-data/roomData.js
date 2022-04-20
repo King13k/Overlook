@@ -39,6 +39,6 @@ const roomData = [
     "numBeds": 2,
     "costPerNight": 340.17
   }
-]
+];
 
-export { roomData };
+export default roomData;
