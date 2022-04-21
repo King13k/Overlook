@@ -1,5 +1,6 @@
 const roomData = [
   {
+
     "number": 12,
     "roomType": "single room",
     "bidet": false,

@@ -21,7 +21,6 @@ class Customer {
               return room;
             }
           })
-
           return foundRoom;
         })
         let totalCost = totalCostArray.reduce((acc, room) => {
@@ -31,8 +30,6 @@ class Customer {
         console.log(totalCost)
         return  Math.trunc(totalCost)
   }
-
-  
 
 }
 

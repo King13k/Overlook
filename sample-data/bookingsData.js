@@ -1,5 +1,6 @@
 const bookingData = [
   {
+
     "id": "5fwrgu4i7k55hl6t8",
     "userID": 1,
     "date": "2022/02/05",
@@ -28,7 +29,7 @@ const bookingData = [
   "userID": 5,
   "date": "2022/01/19",
   "roomNumber": 21
-  },
+  }
 ]
 
 export default bookingData;
