@@ -23,6 +23,6 @@ const customerData = [
     "id": 5,
     "name": "Rhiannon Little"
   }
-]
+];
 
-export { customerData };
+export default customerData;
