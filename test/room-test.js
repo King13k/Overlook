@@ -23,26 +23,26 @@ describe('Room', () => {
   });
 
   it('Should have a room number', () => {
-    expect(room1.number).to.equal(1);
+    expect(room1.number).to.equal(12);
   });
 
   it('Should have a room type', () => {
-    expect(room1.roomType).to.equal("residential suite");
+    expect(room1.roomType).to.equal("single room");
   });
 
   it('Should check for bidet', () => {
-    expect(room1.bidet).to.equal(true);
+    expect(room1.bidet).to.equal(false);
   });
 
   it('Should check for bed size', () => {
-    expect(room1.bedSize).to.equal("queen")
+    expect(room1.bedSize).to.equal("twin")
   });
 
   it('Should check for number of beds', () => {
-    expect(room1.numBeds).to.equal(1);
+    expect(room1.numBeds).to.equal(2);
   });
 
   it('Should have a cost per night', () => {
-    expect(room1.costPerNight).to.equal(358.4);
+    expect(room1.costPerNight).to.equal(172.09);
   });
 });

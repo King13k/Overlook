@@ -42,6 +42,11 @@ describe('Customer', () => {
 
   it('Should return total cost for rooms', () => {
     customer1.getCustomerBookings(bookingData)
-    expect(customer1.getTotalSpent(roomData)).to.equal(0)
+
+    expect(customer1.getTotalSpent(roomData)).to.equal(808)
   });
+
+
+
+
 });

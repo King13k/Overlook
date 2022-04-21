@@ -23,7 +23,12 @@ class Customer {
           })
           return foundRoom;
         })
-
+        let totalCost = totalCostArray.reduce((acc, room) => {
+          acc += room[0].costPerNight
+          return acc
+        }, 0);
+        console.log(totalCost)
+        return  Math.trunc(totalCost)
   }
 
 }
