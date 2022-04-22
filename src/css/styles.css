@@ -15,7 +15,7 @@ body {
 .main-dash {
   background: #8D8780;
 }
-
+.calendar,
 .welcome-user,
 .welcome-message, .navBtn {
   display: flex;

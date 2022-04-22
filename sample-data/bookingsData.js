@@ -8,13 +8,13 @@ const bookingData = [
   },
   {
     "id": "5fwrgu4i7k55hl6uy",
-    "userID": 1,
+    "userID": 2,
     "date": "2022/01/24",
     "roomNumber": 19
   },
   {
     "id": "5fwrgu4i7k55hl6tl",
-    "userID": 1,
+    "userID": 3,
     "date": "2022/01/10",
     "roomNumber": 8
   },

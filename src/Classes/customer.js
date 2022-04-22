@@ -3,7 +3,10 @@ class Customer {
     this.id = customer.id;
     this.name = customer.name;
     this.bookings = [];
+    this.availableRooms = [];
+    this.bookedRooms = [];
     this.totalSpent = 0;
+    this.apology = `Sorry at this time we are currently booked up!`
   }
 
   getCustomerBookings(bookings) {
@@ -12,6 +15,9 @@ class Customer {
         return this.bookings.push(booking)
       }
     });
+      if(this.bookings.length === 0){
+        return this.apology;
+      }
   }
 
   getTotalSpent(roomData) {
@@ -27,9 +33,29 @@ class Customer {
           acc += room[0].costPerNight
           return acc
         }, 0);
-        console.log(totalCost)
         return  Math.trunc(totalCost)
-  }
+  };
+
+  bookingByDate(date, bookings, roomData) {
+    bookings.filter(booking => {
+      if(booking.date === date){
+      roomData.find(room => {
+        if(booking.roomNumber === room.number){
+          return this.bookedRooms.push(room)
+        }
+      });
+      }
+    });
+  };
+
+  findAvailableRooms(roomData) {
+    this.availableRooms = roomData.reduce((acc, room) => {
+      if(room.number !== this.bookedRooms.roomNumber) {
+        acc.push(room)
+      }
+      return acc;
+    },[]);
+  };
 
 }
 

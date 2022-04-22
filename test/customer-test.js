@@ -42,11 +42,21 @@ describe('Customer', () => {
 
   it('Should return total cost for rooms', () => {
     customer1.getCustomerBookings(bookingData)
-
-    expect(customer1.getTotalSpent(roomData)).to.equal(808)
+    expect(customer1.getTotalSpent(roomData)).to.equal(172)
   });
 
+  it('Should return unavailbe rooms for booking date', () => {
+    customer1.bookingByDate("2022/02/05", bookingData, roomData);
+    expect(customer1.bookedRooms[0]).to.equal(roomData[0]);
+  });
 
+  it('Should return available rooms by date', () => {
+    customer1.bookingByDate("2022/02/05", bookingData, roomData);
+    customer1.findAvailableRooms(roomData);
+    console.log(roomData[0])
+    expect(customer1.availableRooms[0]).to.equal(roomData[0]);
+  });
 
+// test for apology
 
 });
