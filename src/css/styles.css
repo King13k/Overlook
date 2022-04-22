@@ -22,7 +22,37 @@ body {
   justify-content: center;
 }
 
+.login-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+}
+
+.user-login-section {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+
+.login-btn,
 #book-now-btn {
   border: 3px solid black;
   border-radius: 10px;
+}
+
+.hidden {
+  display: none;
 }

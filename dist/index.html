@@ -7,9 +7,23 @@
   <title>Overlook Hotel!</title>
 </head>
 <body>
-  <section class="main-dash">
+  <section class="login-page">
     <nav>
       <h2 class="welcome-message">Welcome to Overlook Hotel!</h2>
+    </nav>
+    <h1 class="login">Login</h1>
+    <div class="user-login-section">
+      <label for="username"><b></label>
+      <input type="text" placeholder="Username" id="username" required>
+      <label for="password"><b></label>
+      <input type="text" placeholder="Enter Password" name="password" required>
+      <button type="submit" class="login-btn">Login</button>
+    </div>
+  </section>
+            <!---User Dashboard--->
+  <section class="main-dash hidden">
+    <nav>
+      <h2 class="welcome-message">Welcome Back!</h2>
       <section class="navBtn">
         <button type="submit" id="book-now-btn">Book Now!</button>
       </section>
@@ -18,11 +32,11 @@
     <h1 class="welcome-user">Welcome, User You spent $0, On Rooms So Far</h1>
   </section>
 
-  <section>
+  <section class="view-rooms hidden">
     <form>
       <div class="calendar">
         <label for="calendar-start">Start Date:</label>
-        <input type="date" id="calendar-start" name="trip-start" min="2022-04-01" max="2022-04-30" required>
+        <input type="date" id="calendar-start" name="trip-start" min="2022-04-01" max="2022-12-31" required>
         <input type="submit" id="calendarCheckInBtn">
 
           <label for="selecting-room">Filter Room Type:</label>
@@ -33,7 +47,7 @@
             <option>Suite</option>
             <option>Single Room</option>
           </select>
-          <input type="submit" id="dropDownBtn">  
+          <input type="submit" id="dropDownBtn">
       </div>
     </form>
   </section>
