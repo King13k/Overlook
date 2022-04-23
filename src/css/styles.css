@@ -12,14 +12,31 @@ body {
   margin: 0px;
 }
 
-.main-dash {
-  background: #8D8780;
-}
+
 .calendar,
 .welcome-user,
 .welcome-message, .navBtn {
   display: flex;
   justify-content: center;
+}
+
+.welcome-user {
+  font-size: 20px;
+
+}
+
+.dashboard {
+  height: 50vh;
+  overflow-y: scroll;
+  background-color: transparent;
+}
+
+.bookings {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: white;
+  margin: 5%;
 }
 
 .login-page {
