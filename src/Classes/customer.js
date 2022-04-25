@@ -9,15 +9,13 @@ class Customer {
     this.apology = `Sorry at this time we are currently booked up!`
   }
 
-  getCustomerBookings(bookings) {
-    bookings.filter(booking => {
-      if(booking.userID === this.id){
-        return this.bookings.push(booking)
+  getCustomerBookings(bookingData) {
+    bookingData.forEach(item => {
+      if(item.userID === this.id){
+       this.bookings.push(item)
       }
     });
-      if(this.bookings.length === 0){
-        return this.apology;
-      }
+    return this.bookings
   }
 
   getTotalSpent(roomData) {

@@ -37,6 +37,13 @@ body {
   justify-content: space-evenly;
   background-color: white;
   margin: 5%;
+
+}
+
+.rooms {
+  height: 50%;
+  overflow-y: scroll;
+  background-color: transparent;
 }
 
 .apology-message {

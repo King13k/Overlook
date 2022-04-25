@@ -64,6 +64,7 @@ bookButton.addEventListener("click", function() {
 
 
 submitBtn.addEventListener("click", function() {
+  event.preventDefault();
   getDate();
   availableRooms();
 });
@@ -82,7 +83,7 @@ function viewUserDash (customer, bookings, roomData) {
   const total = customer.getTotalSpent(roomData)
   userMessage.innerHTML = `<h2>Welcome to Overlook Hotel ${customer.name},</h2>
   <br><h2>Total Spent: $ ${total}</h2>`
-  if(customer.getCustomerBookings.length > 0) {
+  if(customer.getCustomerBookings(bookingData).length > 0) {
     return customer.bookings.forEach(booking => {
       userBookingPage.innerHTML += `
       <section class="bookings">
@@ -100,9 +101,11 @@ function viewUserDash (customer, bookings, roomData) {
 
 function availableRooms () {
   console.log('availableRooms')
+  console.log(customer)
   viewAvailableRooms.innerHTML = ''
-  if (availableRooms.length > 0) {
-    availableRooms.forEach(room => {
+  customer.findAvailableRooms(roomData)
+  if (customer.availableRooms.length > 0) {
+    customer.availableRooms.forEach(room => {
       viewAvailableRooms.innerHTML += `
       <section class="rooms" id=${room.number}>
       <p>Room Info:</p>
@@ -114,16 +117,12 @@ function availableRooms () {
       <button class="book-now-btn">Book Now</button>
       </section>`
     })
-    console.log('HTML')
   } else {
     return viewAvailableRooms.innerHTML = `<h1 class="apology-message"> ${customer.apology}</h1>`
   }
 };
 
 function getDate (event) {
-  console.log('Start')
-  event.preventDefault();
-  console.log('preventDefault')
   date = calendarStart.value
-  console.log('date')
+  console.log()
 };

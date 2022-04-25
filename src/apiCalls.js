@@ -2,6 +2,7 @@ let fetchData = (extension) => {
   return fetch(`http://localhost:3001/api/v1/${extension}`)
     .then((response) => {
       if(response.ok) {
+        // console.log(response.json())
         return response.json();
       } else {
         throw Error(response.statusText)
