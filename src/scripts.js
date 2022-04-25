@@ -23,7 +23,7 @@ const roomBookBtn = document.querySelector('.navBtn');
 const userMessage = document.querySelector('.welcome-user');
 const bookButton = document.querySelector('#book-now-btn');
 const viewRooms = document.querySelector('.view-rooms');
-const viewAvailableRooms = document.querySelector('.rooms');
+const viewAvailableRooms = document.querySelector('.rooms-list');
 const submitBtn = document.querySelector('#calendarCheckInBtn');
 const calendarStart = document.querySelector('#calendar-start');
 
@@ -32,7 +32,7 @@ let bookingData
 let roomData
 let customer
 let date
-
+let bookings
 
 
  function show(element) {
@@ -50,6 +50,7 @@ window.addEventListener("load", function(){
       customerData = data[0].customers
       bookingData = data[1].bookings
       roomData = data[2].rooms
+      bookings = new Booking(bookingData)
       customer = new Customer(customerData[0])
       viewUserDash(customer, bookingData, roomData)
     });
@@ -100,10 +101,13 @@ function viewUserDash (customer, bookings, roomData) {
 };
 
 function availableRooms () {
-  console.log('availableRooms')
-  console.log(customer)
   viewAvailableRooms.innerHTML = ''
-  customer.findAvailableRooms(roomData)
+  customer.findAvailableRooms(roomData,date,bookingData)
+  bookings.sortedRooms.forEach(room => {
+    if(room.userID === customer.id){
+
+    }
+  })
   if (customer.availableRooms.length > 0) {
     customer.availableRooms.forEach(room => {
       viewAvailableRooms.innerHTML += `
@@ -117,12 +121,12 @@ function availableRooms () {
       <button class="book-now-btn">Book Now</button>
       </section>`
     })
-  } else {
-    return viewAvailableRooms.innerHTML = `<h1 class="apology-message"> ${customer.apology}</h1>`
   }
+
 };
 
 function getDate (event) {
-  date = calendarStart.value
-  console.log()
+  const calendarDate = calendarStart.value
+  date = calendarDate.split('-').join('/')
+  bookings.sortRoomsByDate(date)
 };
