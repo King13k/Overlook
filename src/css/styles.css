@@ -37,6 +37,31 @@ body {
   justify-content: space-evenly;
   background-color: white;
   margin: 5%;
+
+}
+
+.rooms-list {
+  height: 50vh;
+  overflow-y: scroll;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rooms {
+  background-color: white;
+  margin: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+}
+
+.apology-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-page {

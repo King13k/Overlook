@@ -9,15 +9,13 @@ class Customer {
     this.apology = `Sorry at this time we are currently booked up!`
   }
 
-  getCustomerBookings(bookings) {
-    bookings.filter(booking => {
-      if(booking.userID === this.id){
-        return this.bookings.push(booking)
+  getCustomerBookings(bookingData) {
+    bookingData.forEach(item => {
+      if(item.userID === this.id){
+       this.bookings.push(item)
       }
     });
-      if(this.bookings.length === 0){
-        return this.apology;
-      }
+    return this.bookings
   }
 
   getTotalSpent(roomData) {
@@ -37,25 +35,38 @@ class Customer {
   };
 
   bookingByDate(date, bookings, roomData) {
-    bookings.filter(booking => {
+    this.bookedRooms = bookings.reduce((acc,booking) => {
       if(booking.date === date){
       roomData.find(room => {
         if(booking.roomNumber === room.number){
-          return this.bookedRooms.push(room)
+          acc.push(room)
         }
       });
-      }
-    });
-  };
-
-  findAvailableRooms(roomData) {
-    this.availableRooms = roomData.reduce((acc, room) => {
-      if(room.number !== this.bookedRooms.roomNumber) {
-        acc.push(room)
       }
       return acc;
     },[]);
   };
+
+  findAvailableRooms(roomData,date,bookings) {
+    this.bookingByDate(date, bookings, roomData)
+    const unavailableRooms = this.bookedRooms.map(eachBooking => {
+      return eachBooking.number
+    })
+    const getAvailableRooms = roomData.reduce((acc, room) => {
+        if(!unavailableRooms.includes(room.number)) {
+          acc.push(room)
+        }
+      return acc;
+    },[]);
+    this.availableRooms = getAvailableRooms;
+  };
+
+  filterByType(roomData,date,bookings,type) {
+    findAvailableRooms(roomData,date,bookings)
+    this.availableRooms.filter(room => {
+      return room.type === type
+    })
+  }
 
 }
 
