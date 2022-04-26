@@ -15,11 +15,16 @@ import Customer from '../src/Classes/customer';
 import Booking from '../src/Classes/booking';
 import Room from '../src/Classes/rooms';
 // import domUpdates from './domUpdates';
-import {fetchData,postData} from './apiCalls';
+import {
+  fetchData,
+  fetchSingleApi,
+  postData
+} from './apiCalls';
 
 const userDashBoard = document.querySelector('.main-dash');
 const userBookingPage = document.querySelector('.dashboard');
 const roomBookBtn = document.querySelector('.navBtn');
+const loginBtn = document.querySelector('.login-btn');
 const userMessage = document.querySelector('.welcome-user');
 const bookButton = document.querySelector('#book-now-btn');
 const viewRooms = document.querySelector('.view-rooms');
@@ -30,6 +35,7 @@ const calendarStart = document.querySelector('#calendar-start');
 const roomTypes = document.querySelector('#room-types');
 const filteredBookBtn = document.querySelector('.filter-book-btn');
 const returnToDash = document.querySelector('.return-to-dash');
+const loginPage = document.querySelector('.login-page');
 
 
 let customerData
@@ -41,7 +47,7 @@ let bookings
 let type
 
 
- function show(element) {
+function show(element) {
   element.classList.remove('hidden');
 };
 
@@ -50,9 +56,9 @@ function hide(element) {
 };
 
 //Event Listeners
-window.addEventListener("load", function(){
+window.addEventListener("load", function() {
   Promise.all([fetchData('customers'), fetchData('bookings'), fetchData('rooms')])
-  .then(data => {
+    .then(data => {
       customerData = data[0].customers
       bookingData = data[1].bookings
       roomData = data[2].rooms
@@ -62,13 +68,20 @@ window.addEventListener("load", function(){
     });
 });
 
+loginBtn.addEventListener("click", function() {
+  login();
+});
+
 bookButton.addEventListener("click", function() {
   hide(userDashBoard);
   show(viewRooms);
   availableRooms();
 });
 
-
+returnToDash.addEventListener("click", function() {
+  hide(viewRooms)
+  show(userDashBoard)
+});
 
 submitBtn.addEventListener("click", function() {
   event.preventDefault();
@@ -82,41 +95,60 @@ roomFilterBtn.addEventListener("click", function() {
 });
 
 document.addEventListener("click", function(e) {
-  if(e.target && e.target.className === 'filter-book-btn'){
+  if (e.target && e.target.className === 'filter-book-btn') {
     postData(customer.bookByFilterRooms(e.target.parentElement.id))
-    .then(() => {
-      Promise.all([fetchData('customers'), fetchData('bookings'), fetchData('rooms')])
-      .then (data => {
-          customerData = data[0].customers
-          bookingData = data[1].bookings
-          roomData = data[2].rooms
-          bookings = new Booking(bookingData)
-          viewUserDash(customer, bookingData, roomData)
-        });
-    })
+      .then(() => {
+        Promise.all([fetchData('customers'), fetchData('bookings'), fetchData('rooms')])
+          .then(data => {
+            customerData = data[0].customers
+            bookingData = data[1].bookings
+            roomData = data[2].rooms
+            bookings = new Booking(bookingData)
+            viewUserDash(customer, bookingData, roomData)
+          });
+      })
   }
 });
 
-returnToDash.addEventListener("click", function() {
-  hide(viewRooms)
+
+
+
+
+function instanceOfGuest(data) {
+  customer = new Customer(data)
+  hide(loginPage)
   show(userDashBoard)
-})
+}
+
+function login() {
+  let username = usernameInput.value;
+  let password = passwordInput.value;
+  let userId = username.split('customer')
+  if (username.startsWith('customer') && (userId[1] > 0 && userId[1] < 51) && password === 'overlook2021') {
+    userId = Number(userId[1])
+    getGuest(userId)
+  } else {
+     'Sorry incorrect infomation try again'
+  }
+}
+
+function getGuest(userId) {
+  fetchSingleApi(userId)
+    .then(data => {
+      instanceOfGuest(data)
+      viewUserDash(customer, bookingData, roomData);
+    })
+    .catch(error => console.log(err))
+}
 
 
 
-
-
-
-
-
-
-
-function viewUserDash (customer, bookings, roomData) {
+function viewUserDash(customer, bookings, roomData) {
   customer.getCustomerBookings(bookings)
   const total = customer.getTotalSpent(roomData)
-  userMessage.innerHTML = `<h2>Welcome to Overlook Hotel ${customer.name},</h2>
+  userMessage.innerHTML = `<h2>Welcome ${customer.name},</h2>
   <br><h2>Total Spent: $ ${total}</h2>`
-  if(customer.getCustomerBookings(bookingData).length > 0) {
+  if (customer.getCustomerBookings(bookingData).length > 0) {
     return customer.bookings.forEach(booking => {
       userBookingPage.innerHTML += `
       <section class="bookings">
@@ -128,16 +160,15 @@ function viewUserDash (customer, bookings, roomData) {
     });
   } else {
     userBookingPage.innerHTML = ''
-    return userBookingPage.innerHTML ='<h1>Sorry but at this time we do not have any available space, try again later</h1>'
+    return userBookingPage.innerHTML = '<h1>Sorry but at this time we do not have any available space, try again later</h1>'
   };
 };
 
-function availableRooms () {
+function availableRooms() {
   viewAvailableRooms.innerHTML = ''
-  customer.findAvailableRooms(roomData,date,bookingData)
+  customer.findAvailableRooms(roomData, date, bookingData)
   bookings.sortedRooms.forEach(room => {
-    if(room.userID === customer.id){
-    }
+    if (room.userID === customer.id) {}
   });
   if (customer.availableRooms.length > 0) {
     customer.availableRooms.forEach(room => {
@@ -154,11 +185,11 @@ function availableRooms () {
     })
   } else {
     viewAvailableRooms.innerHTML = ''
-    return viewAvailableRooms.innerHTML =  '<h1>Sorry no available rooms for this date</h1>'
+    return viewAvailableRooms.innerHTML = '<h1>Sorry no available rooms for this date</h1>'
   };
 };
 
-function filterRoomTypes () {
+function filterRoomTypes() {
   viewAvailableRooms.innerHTML = ''
   const type = getRoomType();
   customer.filterByType(type);
@@ -177,16 +208,16 @@ function filterRoomTypes () {
     })
 
   } else {
-    viewAvailableRooms.innerHTML =  '<h1>Sorry no available rooms for this date</h1>'
+    viewAvailableRooms.innerHTML = '<h1>Sorry no available rooms for this date</h1>'
   };
 };
 
-function getRoomType () {
+function getRoomType() {
   const roomSelect = roomTypes.value
   return roomSelect.toLowerCase();
 };
 
-function getDate (event) {
+function getDate(event) {
   const calendarDate = calendarStart.value
   date = calendarDate.split('-').join('/')
   bookings.sortRoomsByDate(date)
