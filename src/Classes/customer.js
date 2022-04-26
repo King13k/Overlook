@@ -1,5 +1,4 @@
-import {postData} from '../apiCalls'
-
+import {fetchData,postData} from '../apiCalls'
 class Customer {
   constructor(customer) {
     this.id = customer.id;
@@ -79,9 +78,9 @@ class Customer {
     const data = {
       userID: this.id,
       date: todayDate,
-      roomNumber: roomId
+      roomNumber: Number(roomId)
     };
-    postData(data);
+    return data
   }
 
 
