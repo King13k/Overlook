@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Overlook Hotel!</title>
 </head>
+<!---Login--->
 <body>
-  <section class="login-page hidden">
+  <section class="login-page">
     <nav>
-      <h2 class="welcome-message">Welcome to Overlook Hotel!</h2>
+      <h2 class="welcome-message">Welcome to Peace Palace Hotel!</h2>
     </nav>
     <h1 class="login">Login</h1>
     <div class="user-login-section">
       <label for="username"><b></label>
-      <input type="text" placeholder="Username" id="username" required>
+      <input type="text" placeholder="Username" id="usernameInput" name="username" required>
       <label for="password"><b></label>
-      <input type="text" placeholder="Enter Password" name="password" required>
+      <input type="text" placeholder="Enter Password" id="passwordInput" name="password" required>
       <button type="submit" class="login-btn">Login</button>
     </div>
   </section>
-            <!---User Dashboard--->
-  <section class="main-dash">
+  <!---User Dashboard--->
+  <section class="main-dash hidden">
     <nav>
       <h2 class="welcome-message">Welcome Back!</h2>
       <section class="navBtn">
@@ -40,15 +42,15 @@
         <input type="date" id="calendar-start" name="trip-start" min="2022-01-01" max="2022-12-31" required>
         <input type="submit" id="calendarCheckInBtn">
 
-          <label for="selecting-room">Filter Room Type:</label>
-          <select name="room-types" id="room-types">
-            <option>Room Type</option>
-            <option>Residential Suite</option>
-            <option>Junior Suite</option>
-            <option>Suite</option>
-            <option>Single Room</option>
-          </select>
-          <input type="submit" id="dropDownBtn">
+        <label for="selecting-room">Filter Room Type:</label>
+        <select name="room-types" id="room-types">
+          <option>Room Type</option>
+          <option>Residential Suite</option>
+          <option>Junior Suite</option>
+          <option>Suite</option>
+          <option>Single Room</option>
+        </select>
+        <input type="submit" id="dropDownBtn">
       </div>
     </form>
     <section class='rooms-list'>
@@ -60,4 +62,5 @@
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 </body>
+
 </html>

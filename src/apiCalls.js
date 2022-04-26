@@ -1,4 +1,4 @@
-let fetchData = (extension) => {
+const fetchData = (extension) => {
   return fetch(`http://localhost:3001/api/v1/${extension}`)
     .then((response) => {
       if(response.ok) {
@@ -8,6 +8,11 @@ let fetchData = (extension) => {
       }
     })
     .catch(err => console.log(err));
+};
+
+const fetchSingleApi = (userId) => {
+  return fetch(`http://localhost:3001/api/v1/customers/${userId}`)
+    .then(response => response.json())
 };
 
 const postData = (data) => {
@@ -30,4 +35,4 @@ const postData = (data) => {
 
 
 
-export {fetchData, postData}
+export {fetchData,fetchSingleApi,postData}

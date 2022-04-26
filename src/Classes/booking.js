@@ -9,13 +9,13 @@ class Booking {
   }
 
 
-    sortRoomsByDate(dateInput) {
-  const roomsByDate = this.data.filter(booking => {
+  sortRoomsByDate(dateInput) {
+    const roomsByDate = this.data.filter(booking => {
       return booking.date === dateInput
-      })
-      this.sortedRooms = roomsByDate;
-      return roomsByDate;
-    }
+    })
+    this.sortedRooms = roomsByDate;
+    return roomsByDate;
+  }
 }
 
 export default Booking;
