@@ -13,7 +13,6 @@ class Booking {
   const roomsByDate = this.data.filter(booking => {
       return booking.date === dateInput
       })
-      console.log(roomsByDate)
       this.sortedRooms = roomsByDate;
       return roomsByDate;
     }

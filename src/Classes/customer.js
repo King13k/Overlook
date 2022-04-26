@@ -1,3 +1,5 @@
+import {postData} from '../apiCalls'
+
 class Customer {
   constructor(customer) {
     this.id = customer.id;
@@ -5,6 +7,7 @@ class Customer {
     this.bookings = [];
     this.availableRooms = [];
     this.bookedRooms = [];
+    this.filteredRooms = [];
     this.totalSpent = 0;
     this.apology = `Sorry at this time we are currently booked up!`
   }
@@ -61,12 +64,28 @@ class Customer {
     this.availableRooms = getAvailableRooms;
   };
 
-  filterByType(roomData,date,bookings,type) {
-    findAvailableRooms(roomData,date,bookings)
-    this.availableRooms.filter(room => {
-      return room.type === type
+  filterByType(type) {
+  const roomsByType = this.availableRooms.filter(room => {
+    return room.roomType === type
+
     })
+     this.filteredRooms = roomsByType;
   }
+
+  bookByFilterRooms(roomId) {
+    console.log('Date:',new Date().toLocaleDateString('en-ZA'))
+    console.log('Customer Id',this.id)
+    const todayDate = new Date().toLocaleDateString('en-ZA')
+    const data = {
+      userID: this.id,
+      date: todayDate,
+      roomNumber: roomId
+    };
+    postData(data);
+  }
+
+
+
 
 }
 
