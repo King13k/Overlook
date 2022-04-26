@@ -15,7 +15,7 @@ import Customer from '../src/Classes/customer';
 import Booking from '../src/Classes/booking';
 import Room from '../src/Classes/rooms';
 // import domUpdates from './domUpdates';
-import {fetchData} from './apiCalls';
+import {fetchData,postData} from './apiCalls';
 
 const userDashBoard = document.querySelector('.main-dash');
 const userBookingPage = document.querySelector('.dashboard');
@@ -25,7 +25,11 @@ const bookButton = document.querySelector('#book-now-btn');
 const viewRooms = document.querySelector('.view-rooms');
 const viewAvailableRooms = document.querySelector('.rooms-list');
 const submitBtn = document.querySelector('#calendarCheckInBtn');
+const roomFilterBtn = document.querySelector('#dropDownBtn')
 const calendarStart = document.querySelector('#calendar-start');
+const roomTypes = document.querySelector('#room-types');
+const filteredBookBtn = document.querySelector('.filter-book-btn');
+
 
 let customerData
 let bookingData
@@ -33,15 +37,16 @@ let roomData
 let customer
 let date
 let bookings
+let type
 
 
  function show(element) {
   element.classList.remove('hidden');
-}
+};
 
 function hide(element) {
   element.classList.add('hidden');
-}
+};
 
 //Event Listeners
 window.addEventListener("load", function(){
@@ -70,6 +75,19 @@ submitBtn.addEventListener("click", function() {
   availableRooms();
 });
 
+roomFilterBtn.addEventListener("click", function() {
+  event.preventDefault();
+  filterRoomTypes();
+});
+
+document.addEventListener("click", function(e) {
+  if(e.target && e.target.className === 'filter-book-btn'){
+    customer.bookByFilterRooms(e.target.parentElement.id)
+  }
+
+});
+
+
 
 
 
@@ -93,11 +111,11 @@ function viewUserDash (customer, bookings, roomData) {
       <p>Booked for: ${booking.date}<p>
       <p>Room Number: ${booking.roomNumber}</p>
       </section>`
-    })
+    });
   } else {
     userBookingPage.innerHTML = ''
     return userBookingPage.innerHTML ='<h1>Sorry but at this time we do not have any available space, try again later</h1>'
-  }
+  };
 };
 
 function availableRooms () {
@@ -105,9 +123,8 @@ function availableRooms () {
   customer.findAvailableRooms(roomData,date,bookingData)
   bookings.sortedRooms.forEach(room => {
     if(room.userID === customer.id){
-
     }
-  })
+  });
   if (customer.availableRooms.length > 0) {
     customer.availableRooms.forEach(room => {
       viewAvailableRooms.innerHTML += `
@@ -118,11 +135,41 @@ function availableRooms () {
       <p>Bed Size: ${room.bedSize}</p>
       <p># Beds: ${room.numBeds}</p>
       <p>Cost: ${room.costPerNight}</p>
-      <button class="book-now-btn">Book Now</button>
+      <button class="filter-book-btn">Book Now</button>
       </section>`
     })
-  }
+  } else {
+    viewAvailableRooms.innerHTML = ''
+    return viewAvailableRooms.innerHTML =  '<h1>Sorry no available rooms for this date</h1>'
+  };
+};
 
+function filterRoomTypes () {
+  viewAvailableRooms.innerHTML = ''
+  const type = getRoomType();
+  customer.filterByType(type);
+  if (customer.filteredRooms.length > 0) {
+    customer.filteredRooms.forEach(room => {
+      viewAvailableRooms.innerHTML += `
+      <section class="rooms" id=${room.number}>
+      <p>Room Info:</p>
+      <p class="roomNumber" id=${room.number}>room number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      <p>Bed Size: ${room.bedSize}</p>
+      <p># Beds: ${room.numBeds}</p>
+      <p>Cost: ${room.costPerNight}</p>
+      <button class="filter-book-btn">Book Now</button>
+      </section>`
+    })
+
+  } else {
+    viewAvailableRooms.innerHTML =  '<h1>Sorry no available rooms for this date</h1>'
+  };
+};
+
+function getRoomType () {
+  const roomSelect = roomTypes.value
+  return roomSelect.toLowerCase();
 };
 
 function getDate (event) {
