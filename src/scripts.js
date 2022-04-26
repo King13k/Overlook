@@ -29,6 +29,7 @@ const roomFilterBtn = document.querySelector('#dropDownBtn')
 const calendarStart = document.querySelector('#calendar-start');
 const roomTypes = document.querySelector('#room-types');
 const filteredBookBtn = document.querySelector('.filter-book-btn');
+const returnToDash = document.querySelector('.return-to-dash');
 
 
 let customerData
@@ -82,11 +83,24 @@ roomFilterBtn.addEventListener("click", function() {
 
 document.addEventListener("click", function(e) {
   if(e.target && e.target.className === 'filter-book-btn'){
-    customer.bookByFilterRooms(e.target.parentElement.id)
+    postData(customer.bookByFilterRooms(e.target.parentElement.id))
+    .then(() => {
+      Promise.all([fetchData('customers'), fetchData('bookings'), fetchData('rooms')])
+      .then (data => {
+          customerData = data[0].customers
+          bookingData = data[1].bookings
+          roomData = data[2].rooms
+          bookings = new Booking(bookingData)
+          viewUserDash(customer, bookingData, roomData)
+        });
+    })
   }
-
 });
 
+returnToDash.addEventListener("click", function() {
+  hide(viewRooms)
+  show(userDashBoard)
+})
 
 
 

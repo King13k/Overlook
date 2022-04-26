@@ -11,12 +11,12 @@ let fetchData = (extension) => {
 };
 
 const postData = (data) => {
-  return fetch(`http://localhost:3001/api/v1/bookings`, {
+  return fetch("http://localhost:3001/api/v1/bookings", {
     method: 'POST',
-    header: {
+    headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   })
     .then(response => {
       if(response.ok) {
