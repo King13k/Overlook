@@ -32,6 +32,7 @@ This is a solo project that was built by using OOP, self and resources like peer
 
 ## How to use:
 [Clone down app repo](https://github.com/King13k/Overlook)
+<br></br>
 [Clone down app api](https://github.com/turingschool-examples/overlook-api)
 Once in cloned down version run `npm start`
 Also run `npm start` in the api main directory
