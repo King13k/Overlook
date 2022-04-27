@@ -1,7 +1,7 @@
 # Overlook Hotel
 
 ## A Front End Dev Project by [Kevin King](https://github.com/King13k?tab=repositories)
-This is a solo project that was built by using OOP, self and resources like peers.
+This is a solo project that was built by using OOP & TDD along with self knowledge and resources like peers.
 
 
 ## Project Manager [Heather Faerber](https://github.com/hfaerber)
