@@ -8,13 +8,11 @@ import './css/styles.css';
 
 
 
-console.log('This is the JavaScript entry file - your code begins here.');
-
 //imports
 import Customer from '../src/Classes/customer';
 import Booking from '../src/Classes/booking';
 import Room from '../src/Classes/rooms';
-// import domUpdates from './domUpdates';
+
 import {
   fetchData,
   fetchSingleApi,
@@ -36,6 +34,7 @@ const roomTypes = document.querySelector('#room-types');
 const filteredBookBtn = document.querySelector('.filter-book-btn');
 const returnToDash = document.querySelector('.return-to-dash');
 const loginPage = document.querySelector('.login-page');
+const errorMessage = document.querySelector('.login');
 
 
 let customerData
@@ -105,6 +104,8 @@ document.addEventListener("click", function(e) {
             roomData = data[2].rooms
             bookings = new Booking(bookingData)
             viewUserDash(customer, bookingData, roomData)
+            viewAvailableRooms.innerHTML = ''
+            return viewAvailableRooms.innerHTML = '<h1 class="message">Thanks for booking!</h1>'
           });
       })
   }
@@ -127,8 +128,11 @@ function login() {
   if (username.startsWith('customer') && (userId[1] > 0 && userId[1] < 51) && password === 'overlook2021') {
     userId = Number(userId[1])
     getGuest(userId)
-  } else {
-     'Sorry incorrect infomation try again'
+  } else if(!username || !password){
+    errorMessage.innerHTML = ''
+    errorMessage.innerHTML += `<h2 style="color:red;">Please complete all fields!</h2>`}
+  else {
+    errorMessage.innerText = 'Sorry incorrect infomation try again'
   }
 }
 
@@ -147,7 +151,7 @@ function viewUserDash(customer, bookings, roomData) {
   customer.getCustomerBookings(bookings)
   const total = customer.getTotalSpent(roomData)
   userMessage.innerHTML = `<h2>Welcome ${customer.name},</h2>
-  <br><h2>Total Spent: $ ${total}</h2>`
+  <h2 class="total-spent"> Total Spent: $ ${total}</h2>`
   if (customer.getCustomerBookings(bookingData).length > 0) {
     return customer.bookings.forEach(booking => {
       userBookingPage.innerHTML += `
@@ -185,7 +189,7 @@ function availableRooms() {
     })
   } else {
     viewAvailableRooms.innerHTML = ''
-    return viewAvailableRooms.innerHTML = '<h1>Sorry no available rooms for this date</h1>'
+    return viewAvailableRooms.innerHTML = '<h1 class="message">Sorry no available rooms for this date</h1>'
   };
 };
 
@@ -208,7 +212,7 @@ function filterRoomTypes() {
     })
 
   } else {
-    viewAvailableRooms.innerHTML = '<h1>Sorry no available rooms for this date</h1>'
+    viewAvailableRooms.innerHTML = '<h1 class="message">Sorry no available rooms for this date</h1>'
   };
 };
 

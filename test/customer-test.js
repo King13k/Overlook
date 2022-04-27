@@ -51,12 +51,7 @@ describe('Customer', () => {
   });
 
   it('Should return available rooms by date', () => {
-    customer1.bookingByDate("2022/02/05", bookingData, roomData);
-    customer1.findAvailableRooms(roomData);
-    console.log(roomData[0])
-    expect(customer1.availableRooms[0]).to.equal(roomData[0]);
+    customer1.findAvailableRooms(roomData,"2022/02/05",bookingData);
+    expect(customer1.availableRooms[0]).to.equal(roomData[1]);
   });
-
-// test for apology
-
 });
