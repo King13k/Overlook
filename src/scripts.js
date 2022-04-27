@@ -93,9 +93,10 @@ roomFilterBtn.addEventListener("click", function() {
   filterRoomTypes();
 });
 
+const selectedDate = document.querySelector('input[type="date"]')
 document.addEventListener("click", function(e) {
   if (e.target && e.target.className === 'filter-book-btn') {
-    postData(customer.bookByFilterRooms(e.target.parentElement.id))
+    postData(customer.bookByFilterRooms(e.target.parentElement.id,selectedDate.value.split("-").join("/")))
       .then(() => {
         Promise.all([fetchData('customers'), fetchData('bookings'), fetchData('rooms')])
           .then(data => {
@@ -163,7 +164,7 @@ function viewUserDash(customer, bookings, roomData) {
       </section>`
     });
   } else {
-    userBookingPage.innerHTML = ''
+     userBookingPage.innerHTML = ''
     return userBookingPage.innerHTML = '<h1>Sorry but at this time we do not have any available space, try again later</h1>'
   };
 };

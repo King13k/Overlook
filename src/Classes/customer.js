@@ -74,11 +74,11 @@ class Customer {
     this.filteredRooms = roomsByType;
   }
 
-  bookByFilterRooms(roomId) {
+  bookByFilterRooms(roomId, date) {
     const todayDate = new Date().toLocaleDateString('en-ZA')
     const data = {
       userID: this.id,
-      date: todayDate,
+      date: date,
       roomNumber: Number(roomId)
     };
     return data
