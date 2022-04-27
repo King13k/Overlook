@@ -70,14 +70,11 @@ class Customer {
   filterByType(type) {
     const roomsByType = this.availableRooms.filter(room => {
       return room.roomType === type
-
     })
     this.filteredRooms = roomsByType;
   }
 
   bookByFilterRooms(roomId) {
-    console.log('Date:', new Date().toLocaleDateString('en-ZA'))
-    console.log('Customer Id', this.id)
     const todayDate = new Date().toLocaleDateString('en-ZA')
     const data = {
       userID: this.id,
